@@ -10,6 +10,12 @@ BEGIN { extends 'Catalyst::Controller' }
 #
 __PACKAGE__->config(namespace => '');
 
+sub index :Path :Args(0) {
+    my ( $self, $c ) = @_;
+    # do not display navigation menu
+    $c->stash(no_nav => 1);
+}
+
 sub default :Path {
     my ( $self, $c ) = @_;
     $c->stash( error_msg => 'Page not found' );
