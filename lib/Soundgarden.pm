@@ -165,7 +165,41 @@ __PACKAGE__->config(
             },
         },
     },
-    'CatalystX::Resource' => { controllers => [qw/ /] },
+    'Controller::Playlist' => {
+        resultset_key          => 'playlists_rs',
+        resources_key          => 'playlists',
+        resource_key           => 'playlist',
+        form_class             => 'Soundgarden::Form::Playlist',
+        model                  => 'DB::Playlist',
+        redirect_mode          => 'list',
+        actions                => {
+            base => {
+                Does     => 'NeedsLogin',
+                PathPart => 'playlists',
+            },
+            list => {
+                Does         => 'ACL',
+                RequiresRole => 'can_list_playlists',
+                ACLDetachTo  => '/denied',
+            },
+            create => {
+                Does         => 'ACL',
+                RequiresRole => 'can_create_playlists',
+                ACLDetachTo  => '/denied',
+            },
+            edit => {
+                Does         => 'ACL',
+                RequiresRole => 'can_edit_playlists',
+                ACLDetachTo  => '/denied',
+            },
+            delete => {
+                Does         => 'ACL',
+                RequiresRole => 'can_delete_playlists',
+                ACLDetachTo  => '/denied',
+            },
+        },
+    },
+    'CatalystX::Resource' => { controllers => [qw/ Playlist /] },
 );
 
 # Start the application

@@ -1,4 +1,5 @@
 [% FOREACH user = users %]
-    [% user.name %]<br/>
+    [% user.name %]
+    <a href="[% c.uri_for(c.controller('User').action_for('edit'), [ user.id ]) %]"><button>edit</button></a>
+    <form class="button" method="post" action="[% c.uri_for(c.controller('User').action_for('delete'), [ user.id ]) %]"><input type="submit" value="delete" onclick="return confirm('Confirm deletion')" /></form><br/>
 [% END %]
-

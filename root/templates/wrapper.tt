@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title>Hautnah</title>
+        <title>Soundgarden</title>
         <link rel="stylesheet" type="text/css" href="/static/css/reset-fonts-grids.css"/>
         <link rel="stylesheet" type="text/css" href="/static/css/all.css"/>
     </head>
@@ -25,6 +25,8 @@
                         <div id="nav" class="yui-b">
                             <a href="[% c.uri_for(c.controller('Root').action_for('index')) %]">home</a><br/>
                             <a href="[% c.uri_for(c.controller('User').action_for('list')) %]">users</a><br/>
+                            <a href="[% c.uri_for(c.controller('Playlist').action_for('list')) %]">playlists</a><br/>
+                            <a href="[% c.uri_for(c.controller('Song').action_for('list')) %]">songs</a><br/>
                         </div>
                     [% END %]
                 </div>
