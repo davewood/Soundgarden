@@ -17,9 +17,15 @@ use Catalyst::Runtime 5.80;
 #                 directory
 
 use Catalyst qw/
-    -Debug
+    +CatalystX::SimpleLogin
+    Authentication
     ConfigLoader
     Static::Simple
+    Session
+    Session::Store::FastMmap
+    Session::State::Cookie
+    Unicode::Encoding
+    +CatalystX::Resource
 /;
 
 extends 'Catalyst';
@@ -40,37 +46,92 @@ __PACKAGE__->config(
     # Disable deprecated behavior needed by old applications
     disable_component_resolution_regex_fallback => 1,
     enable_catalyst_header => 1, # Send X-Catalyst header
+    session                  => { flash_to_stash => 1 },
+    encoding                 => 'UTF-8',
+    'Plugin::Authentication' => {
+        default => {
+            store => {
+                class         => 'DBIx::Class',
+                user_model    => 'DB::User',
+                role_relation => 'roles',
+                role_field    => 'name',
+            },
+            credential => {
+                class          => 'Password',
+                password_field => 'password',
+                password_type  => 'self_check',
+            },
+        },
+    },
+    'Controller::Login' => {
+        traits => [qw/ -RenderAsTTTemplate /],
+        render_login_form_stash_key =>
+            'form',    #replace default 'render_login_form'
+        login_form_args => {
+            field_list => [
+                '+remember' => { inactive => 1, required => 0 },
+                '+username' => { size     => 10 },
+                '+password' => { size     => 10 },
+            ],
+            authenticate_username_field_name => 'name',
+        },
+    },
+    'View::HTML' => {
+        INCLUDE_PATH       => [ __PACKAGE__->path_to( 'root', 'templates' ) ],
+        WRAPPER            => 'wrapper.tt',
+        ENCODING           => 'UTF-8',
+        TEMPLATE_EXTENSION => '.tt',
+        render_die         => 1,
+    },
+    'Model::DB' => {
+        schema_class => 'Soundgarden::Schema',
+        fs_path      => __PACKAGE__->path_to( qw/ root files / ),
+        connect_info => {
+            dsn            => 'dbi:SQLite:dbname=soundgarden.db',
+            sqlite_unicode => 1,
+        }
+    },
+    'Controller::User' => {
+        resultset_key          => 'users_rs',
+        resources_key          => 'users',
+        resource_key           => 'user',
+        form_class             => 'Soundgarden::Form::User',
+        model                  => 'DB::User',
+        redirect_mode          => 'list',
+        traits                 => [qw/ -Show /],
+        activate_fields_create => [qw/ password password_repeat /],
+        activate_fields_edit   => [qw/ edit_with_password /],
+        actions                => {
+            base => {
+                Does     => 'NeedsLogin',
+                PathPart => 'users',
+            },
+            list => {
+                Does         => 'ACL',
+                RequiresRole => 'can_list_users',
+                ACLDetachTo  => '/denied',
+            },
+            create => {
+                Does         => 'ACL',
+                RequiresRole => 'can_create_users',
+                ACLDetachTo  => '/denied',
+            },
+            edit => {
+                Does         => 'ACL',
+                RequiresRole => 'can_edit_users',
+                ACLDetachTo  => '/denied',
+            },
+            delete => {
+                Does         => 'ACL',
+                RequiresRole => 'can_delete_users',
+                ACLDetachTo  => '/denied',
+            },
+        },
+    },
+    'CatalystX::Resource' => { controllers => [qw/ /] },
 );
 
 # Start the application
 __PACKAGE__->setup();
-
-
-=head1 NAME
-
-Soundgarden - Catalyst based application
-
-=head1 SYNOPSIS
-
-    script/soundgarden_server.pl
-
-=head1 DESCRIPTION
-
-[enter your description here]
-
-=head1 SEE ALSO
-
-L<Soundgarden::Controller::Root>, L<Catalyst>
-
-=head1 AUTHOR
-
-David Schmidt,,,
-
-=head1 LICENSE
-
-This library is free software. You can redistribute it and/or modify
-it under the same terms as Perl itself.
-
-=cut
 
 1;

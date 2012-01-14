@@ -1,0 +1,6 @@
+[% FOREACH p = people %]
+    <img src="[% c.uri_for(c.controller('People').action_for('picture'), [ p.id ]) %]" style="max-width:50px; max-height:50px;">
+    [% p.name %]
+    <a href="[% c.uri_for(c.controller('People').action_for('edit'), [ p.id ]) %]"><button>edit</button></a>
+    <form class="button" method="post" action="[% c.uri_for(c.controller('People').action_for('delete'), [ p.id ]) %]"><input type="submit" value="delete" onclick="return confirm('Confirm deletion')" /></form><br/>
+[% END %]

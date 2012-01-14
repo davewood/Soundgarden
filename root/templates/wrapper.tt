@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>Hautnah</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/reset-fonts-grids.css"/>
+        <link rel="stylesheet" type="text/css" href="/static/css/all.css"/>
+    </head>
+    <body>
+        <div id="doc4" class="yui-t2">
+            <div id="hd">Soundgarden</div>
+            <div id="bd">
+                <div id="msg">[% msg %]</div>
+                <div id="error_msg">[% error_msg %]</div>
+                <div id="content">
+                    [% IF no_nav %]
+                        [% content %]
+                    [% ELSE %]
+                        <div id="yui-main">
+                            <div class="yui-b">
+                                [% content %]
+                            </div>
+                        </div>
+                        <div id="nav" class="yui-b">
+                            <a href="[% c.uri_for(c.controller('Root').action_for('index')) %]">home</a><br/>
+                            <a href="[% c.uri_for(c.controller('User').action_for('list')) %]">users</a><br/>
+                        </div>
+                    [% END %]
+                </div>
+            </div>
+            <div id="ft">2012</div>
+        </div>
+    </body>
+</html> 

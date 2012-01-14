@@ -10,59 +10,37 @@ BEGIN { extends 'Catalyst::Controller' }
 #
 __PACKAGE__->config(namespace => '');
 
-=head1 NAME
-
-Soundgarden::Controller::Root - Root Controller for Soundgarden
-
-=head1 DESCRIPTION
-
-[enter your description here]
-
-=head1 METHODS
-
-=head2 index
-
-The root page (/)
-
-=cut
-
-sub index :Path :Args(0) {
-    my ( $self, $c ) = @_;
-
-    # Hello World
-    $c->response->body( $c->welcome_message );
-}
-
-=head2 default
-
-Standard 404 error page
-
-=cut
-
 sub default :Path {
     my ( $self, $c ) = @_;
-    $c->response->body( 'Page not found' );
-    $c->response->status(404);
+    $c->stash( error_msg => 'Page not found' );
+    $c->detach('/error404');
 }
 
-=head2 end
+sub denied :Private {
+    my ($self, $c) = @_;
+    $c->stash(error_msg => 'access denied');
+    $c->res->status('403');
+    $c->detach('/error');
+}
 
-Attempt to render a view, if needed.
+sub error404 : Private {
+    my ( $self, $c ) = @_;
+    unless ($c->stash->{error_msg}) {
+        $c->stash(error_msg => 'Page not found. 404');
+    }
+    $c->res->status(404);
+    $c->detach('/error');
+}
 
-=cut
+sub error : Private {
+    my ( $self, $c ) = @_;
+    unless ($c->stash->{error_msg}) {
+        $c->stash(error_msg => 'Unkown error.');
+    }
+    $c->stash(template => 'error.tt');
+}
 
 sub end : ActionClass('RenderView') {}
-
-=head1 AUTHOR
-
-David Schmidt,,,
-
-=head1 LICENSE
-
-This library is free software. You can redistribute it and/or modify
-it under the same terms as Perl itself.
-
-=cut
 
 __PACKAGE__->meta->make_immutable;
 

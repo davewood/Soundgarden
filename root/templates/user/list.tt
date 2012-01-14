@@ -1,0 +1,4 @@
+[% FOREACH user = users %]
+    [% user.name %]<br/>
+[% END %]
+
