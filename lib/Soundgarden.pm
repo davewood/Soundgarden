@@ -135,7 +135,7 @@ __PACKAGE__->config(
         form_class             => 'Soundgarden::Form::Song',
         model                  => 'DB::Song',
         redirect_mode          => 'list',
-        traits                 => [qw/ -Show /],
+        traits                 => [qw/ -Show MergeUploadParams /],
         activate_fields_create => [qw/ file /],
         activate_fields_edit   => [qw/ edit_with_file /],
         actions                => {
@@ -165,7 +165,7 @@ __PACKAGE__->config(
             },
         },
     },
-    #'CatalystX::Resource' => { controllers => [qw/ /] },
+    'CatalystX::Resource' => { controllers => [qw/ /] },
 );
 
 # Start the application

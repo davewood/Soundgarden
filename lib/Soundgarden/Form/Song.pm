@@ -37,11 +37,11 @@ sub html_edit_with_file {
     my ( $self, $field ) = @_;
     my $song_id = $self->item->id;
     # TODO: create URI with c->uri_for ...
-    return qq{<label class="label">File: </label></td><td><a class="button" href="/song/$song_id/edit_with_file">edit</a></td>};
+    return qq{<label class="label">File: </label></td><td><a class="button" href="/songs/$song_id/edit_with_file">edit</a></td>};
 }
 
 # make sure the file has a valid file extension
-sub validate_picture {
+sub validate_file {
     my ( $self, $field ) = @_;
     my @file_extensions = qw/ mp3 /;
     my $ext = substr($field->value->basename, -4);
