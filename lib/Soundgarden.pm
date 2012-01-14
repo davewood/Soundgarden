@@ -128,7 +128,44 @@ __PACKAGE__->config(
             },
         },
     },
-    'CatalystX::Resource' => { controllers => [qw/ /] },
+    'Controller::Song' => {
+        resultset_key          => 'songs_rs',
+        resources_key          => 'songs',
+        resource_key           => 'song',
+        form_class             => 'Soundgarden::Form::Song',
+        model                  => 'DB::Song',
+        redirect_mode          => 'list',
+        traits                 => [qw/ -Show /],
+        activate_fields_create => [qw/ file /],
+        activate_fields_edit   => [qw/ edit_with_file /],
+        actions                => {
+            base => {
+                Does     => 'NeedsLogin',
+                PathPart => 'songs',
+            },
+            list => {
+                Does         => 'ACL',
+                RequiresRole => 'can_list_songs',
+                ACLDetachTo  => '/denied',
+            },
+            create => {
+                Does         => 'ACL',
+                RequiresRole => 'can_create_songs',
+                ACLDetachTo  => '/denied',
+            },
+            edit => {
+                Does         => 'ACL',
+                RequiresRole => 'can_edit_songs',
+                ACLDetachTo  => '/denied',
+            },
+            delete => {
+                Does         => 'ACL',
+                RequiresRole => 'can_delete_songs',
+                ACLDetachTo  => '/denied',
+            },
+        },
+    },
+    #'CatalystX::Resource' => { controllers => [qw/ /] },
 );
 
 # Start the application
