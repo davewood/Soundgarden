@@ -41,12 +41,19 @@ button, form.button input {
 /***************/
 
 #player {
+    margin: auto;
     width:400px;
-    background-color:#333333;
+    background-color:#333;
     -moz-border-radius:6px;
     -webkit-border-radius:6px;
     padding:5px;
 }
+
+#player h1 {
+    color: #fff;
+    text-align: center;
+}
+
 #player_control {
     height:30px;
 }

@@ -177,6 +177,11 @@ __PACKAGE__->config(
                 Does     => 'NeedsLogin',
                 PathPart => 'playlists',
             },
+            show => {
+                Does         => 'ACL',
+                RequiresRole => 'can_list_playlists',
+                ACLDetachTo  => '/denied',
+            },
             list => {
                 Does         => 'ACL',
                 RequiresRole => 'can_list_playlists',
@@ -199,7 +204,7 @@ __PACKAGE__->config(
             },
         },
     },
-    'CatalystX::Resource' => { controllers => [qw/ Playlist /] },
+    #'CatalystX::Resource' => { controllers => [qw/ /] },
 );
 
 # Start the application

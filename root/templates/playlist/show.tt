@@ -30,10 +30,9 @@
     });
 </script>
 
-<p>[% playlist.name %]</p>
-
 [% IF playlist.songs %]
 <div id="player">
+    <h1>[% playlist.name %]</h1> 
     <div id="player_control"></div> 
     <div id="playlist">
     [% FOREACH song = playlist.songs %]
