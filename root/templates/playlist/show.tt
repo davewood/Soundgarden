@@ -18,7 +18,7 @@
                     playlist: false,
                     play: true,
                     autoHide: false,
-                    tooltips: null
+                    tooltips: { volume: false, scrubber: false }
                 }
             } 
         }).playlist("div#playlist", { loop: true });
