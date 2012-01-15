@@ -11,6 +11,11 @@ has_field 'name' => (
     size => 10,
 );
 
+has_field 'songs' => (
+    type => 'Multiple',
+    widget => 'checkbox_group',
+);
+
 has_field 'submit' => ( type => 'Submit', value => 'Submit' );
 
 no HTML::FormHandler::Moose;

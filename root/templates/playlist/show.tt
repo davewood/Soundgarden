@@ -1,1 +1,5 @@
-[% playlist.name %]
+<p>[% playlist.name %]</p>
+
+[% FOREACH song = playlist.songs %]
+    <a href="[% c.uri_for(c.controller('Song').action_for('file'), [ song.id ] ) %]">[% song.name %]</a><br/>
+[% END %]
