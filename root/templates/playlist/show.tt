@@ -1,5 +1,44 @@
+<script type="text/javascript">
+    $(function() {
+        $f("player_control", "/static/js/flowplayer/flowplayer-3.2.7.swf", {
+            clip: {
+                autoPlay:false,
+                type:"mp3"
+            },
+            plugins: {
+                audio: {
+                    url: "/static/js/flowplayer/plugins/flowplayer.audio-3.2.2.swf"
+                },
+                controls: {
+                    url: "/static/js/flowplayer/plugins/flowplayer.controls-3.2.5.swf",
+                    height:30,
+                    backgroundGradient: "none",
+                    backgroundColor: "#333333",
+                    fullscreen: false,
+                    playlist: false,
+                    play: true,
+                    autoHide: false,
+                    tooltips: null
+                }
+            } 
+        });
+
+        $f("player_control").playlist("div#playlist", {
+            loop:true
+        });
+        
+    });
+</script>
+
 <p>[% playlist.name %]</p>
 
-[% FOREACH song = playlist.songs %]
-    <a href="[% c.uri_for(c.controller('Song').action_for('file'), [ song.id ] ) %]">[% song.name %]</a><br/>
+[% IF playlist.songs %]
+<div id="player">
+    <div id="player_control"></div> 
+    <div id="playlist">
+    [% FOREACH song = playlist.songs %]
+        <a href="[% c.uri_for(c.controller('Song').action_for('file'), [ song.id ] ) %]">[% song.name %]</a>
+    [% END %]
+    </div>
+</div>
 [% END %]

@@ -1,4 +1,4 @@
-#doc4 {
+#doc {
     font-size: 138.5%;
 }
 
@@ -34,4 +34,36 @@ button, form.button input {
     background-color: #99c;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
+}
+
+/***************/
+/* Musicplayer */
+/***************/
+
+#player {
+    width:400px;
+    background-color:#333333;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    padding:5px;
+}
+#player_control {
+    height:30px;
+}
+
+#playlist a {
+    color: black;
+    display: block;
+    padding-left:10px;
+    margin-top:2px;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    height: 20px;
+    background-color: #52e93a;
+    text-decoration: none;
+    font-size: 0.8em;
+}
+
+#playlist a.playing, #playlist a.paused, #playlist a:hover {
+    background-color: #389e28;
 }

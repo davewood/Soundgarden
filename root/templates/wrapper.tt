@@ -6,9 +6,16 @@
         <title>Soundgarden</title>
         <link rel="stylesheet" type="text/css" href="/static/css/reset-fonts-grids.css"/>
         <link rel="stylesheet" type="text/css" href="/static/css/all.css"/>
+
+        <!-- JQUERY -->
+        <script type="text/javascript" src="/static/js/jquery/jquery-1.7.1.min.js"></script>
+
+        <!-- FLOWPLAYER -->
+        <script type="text/javascript" src="/static/js/flowplayer/flowplayer-3.2.6.min.js"></script>
+        <script type="text/javascript" src="/static/js/flowplayer/plugins/flowplayer.playlist-3.0.8.min.js"></script>
     </head>
     <body>
-        <div id="doc4" class="yui-t2">
+        <div id="doc" class="yui-t2">
             <div id="hd">Soundgarden</div>
             <div id="bd">
                 <div id="msg">[% msg %]</div>
