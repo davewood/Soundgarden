@@ -8,11 +8,12 @@
         <link rel="stylesheet" type="text/css" href="/static/css/all.css"/>
 
         <!-- JQUERY -->
-        <script type="text/javascript" src="/static/js/jquery/jquery-1.7.1.min.js"></script>
+        <!-- flowplayer playlist does not work with jquery version 1.7.1 or 1.6.4 -->
+        <script type="text/javascript" src="/static/js/jquery/jquery-1.4.2.min.js"></script>
 
         <!-- FLOWPLAYER -->
         <script type="text/javascript" src="/static/js/flowplayer/flowplayer-3.2.6.min.js"></script>
-        <script type="text/javascript" src="/static/js/flowplayer/plugins/flowplayer.playlist-3.0.8.min.js"></script>
+        <script type="text/javascript" src="/static/js/flowplayer/flowplayer.playlist-3.0.8.min.js"></script>
     </head>
     <body>
         <div id="doc" class="yui-t2">

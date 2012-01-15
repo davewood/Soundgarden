@@ -7,10 +7,10 @@
             },
             plugins: {
                 audio: {
-                    url: "/static/js/flowplayer/plugins/flowplayer.audio-3.2.2.swf"
+                    url: "/static/js/flowplayer/flowplayer.audio-3.2.2.swf"
                 },
                 controls: {
-                    url: "/static/js/flowplayer/plugins/flowplayer.controls-3.2.5.swf",
+                    url: "/static/js/flowplayer/flowplayer.controls-3.2.5.swf",
                     height:30,
                     backgroundGradient: "none",
                     backgroundColor: "#333333",
@@ -21,12 +21,7 @@
                     tooltips: null
                 }
             } 
-        });
-
-        $f("player_control").playlist("div#playlist", {
-            loop:true
-        });
-        
+        }).playlist("div#playlist", { loop: true });
     });
 </script>
 
