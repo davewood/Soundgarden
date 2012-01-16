@@ -63,3 +63,9 @@
     </div>
 </div>
 [% END %]
+
+<div id="songs" class="clips">
+    [% FOREACH song = songs %]
+        <div id="[% song.id %]">[% song.name %]</div>
+    [% END %]
+</div>

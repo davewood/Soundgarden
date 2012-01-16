@@ -72,9 +72,15 @@ sub remove_song : Method('GET') Chained('base_with_id') PathPart('remove_song') 
 
 sub auto : Private {
     my ( $self, $c ) = @_;
-    # do not display navigation menu
-    $c->stash(no_nav => 1)
-        if $c->action->name eq 'show';
+
+    if ($c->action->name eq 'show') {
+        # do not display navigation menu
+        $c->stash(
+            no_nav => 1,
+            songs => [ $c->model('DB::Song')->all ],
+        );
+    }
+
     1;
 }
 
