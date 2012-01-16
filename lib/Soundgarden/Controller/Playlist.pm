@@ -53,6 +53,23 @@ sub add_song_at_pos : Method('POST') Chained('base_with_id') PathPart('add_song_
     $c->res->status(200);
 }
 
+sub remove_song : Method('GET') Chained('base_with_id') PathPart('remove_song') Args(1) {
+    my ( $self, $c, $song_id ) = @_;
+
+    my $playlist = $c->stash->{playlist};
+
+    my $playlist_song = $playlist->playlist_songs->search({ song_id => $song_id })->first;
+    if (!$playlist_song) {
+        $c->res->body('Song with id ' . $song_id . ' does not exist in playlist.');
+        $c->res->status(404);
+        $c->detach;
+    }
+
+    $c->res->body($playlist_song->song->name . " removed from playlist.");
+    $playlist_song->delete;
+    $c->res->status(200);
+}
+
 sub auto : Private {
     my ( $self, $c ) = @_;
     # do not display navigation menu
