@@ -21,13 +21,13 @@
                     tooltips: { volume: false, scrubber: false }
                 }
             } 
-        }).playlist("div#playlist", { loop: true });
+        }).playlist("#playlist", { loop: true });
 
-        $("div#songs").sortable({ connectWith: "div#playlist" });
-        $("div#songs").disableSelection();
+        $("#songs").sortable({ connectWith: "#playlist" });
+        $("#songs").disableSelection();
 
         var id, pos;
-        $("div#playlist").sortable({
+        $("#playlist").sortable({
             helper: 'clone',
             axis: 'y',
             update: function(event, ui) {
@@ -51,7 +51,7 @@
                 type: 'POST',
                 url: "[% c.uri_for('/playlists/' _ playlist.id _ '/move_song_to_pos/') %]" + id + '/' + pos,
                 async: false,
-                context: $("div#playlist"),
+                context: $("#playlist"),
                 error: function(){
                     $(this).sortable("cancel");
                 },

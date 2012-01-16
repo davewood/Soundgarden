@@ -40,6 +40,14 @@ button, form.button input {
 /* Musicplayer */
 /***************/
 
+#player_control {
+    height:30px;
+}
+
+#playlist {
+    min-height: 20px;
+}
+
 .clips {
     float:left;
     margin-left: 40px;
@@ -53,10 +61,6 @@ button, form.button input {
 .clips h1 {
     color: #fff;
     text-align: center;
-}
-
-#player_control {
-    height:30px;
 }
 
 .clips a {

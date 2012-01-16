@@ -53,7 +53,7 @@ sub add_song_at_pos : Method('POST') Chained('base_with_id') PathPart('add_song_
     $c->res->status(200);
 }
 
-sub remove_song : Method('GET') Chained('base_with_id') PathPart('remove_song') Args(1) {
+sub remove_song : Method('POST') Chained('base_with_id') PathPart('remove_song') Args(1) {
     my ( $self, $c, $song_id ) = @_;
 
     my $playlist = $c->stash->{playlist};
