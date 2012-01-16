@@ -26,20 +26,22 @@
         $("div#songs").sortable({ connectWith: "div#playlist" });
         $("div#songs").disableSelection();
 
+        var id, pos;
         $("div#playlist").sortable({
             helper: 'clone',
-            containment: 'parent',
+            axis: 'y',
             update: function(event, ui) {
-                $(this).sortable("disable");
-                var id   = ui.item.attr('id');
-                var pos  = ui.item.index() + 1;
-                update_playlist_order(id, pos);
-            },
-            receive: function(event, ui) {
-                $(this).sortable("disable");
-                var id   = ui.item.attr('id');
-                var pos  = ui.item.index() + 1;
-                add_song_at_pos(id, pos);
+                $(ui.sender).sortable("disable");
+                id   = ui.item.attr('id');
+                pos  = ui.item.index() + 1;
+                if (ui.sender) {
+                    // new song has been added
+                    add_song_at_pos(id, pos, ui.sender);
+                } 
+                else {
+                    // song order has changed in playlist
+                    update_playlist_order(id, pos);
+                }
             }
         });
         $("div#playlist").disableSelection();
@@ -59,36 +61,34 @@
             });
         }
 
-        function add_song_at_pos(id, pos) {
+        function add_song_at_pos(id, pos, ui_sender) {
             $.ajax({
                 type: 'POST',
                 url: "[% c.uri_for('/playlists/' _ playlist.id _ '/add_song_at_pos/') %]" + id + '/' + pos,
                 async: false,
-                context: $("div#playlist"),
                 error: function(){
-                    $(this).sortable("cancel");
+                    ui_sender.sortable("cancel");
                 },
                 complete: function(){
-                    $(this).sortable("enable");
+                    ui_sender.sortable("enable");
                 }
             });
         }
     });
 </script>
 
-[% IF playlist.songs %]
-<div id="player">
+<div id="player" class="clips">
     <h1>[% playlist.name %]</h1> 
     <div id="player_control"></div> 
-    <div id="playlist" class="clips">
+    <div id="playlist">
     [% FOREACH playlist_song = playlist.playlist_songs %]
         <a id="[% playlist_song.song_id %]" href="[% c.uri_for(c.controller('Song').action_for('file'), [ playlist_song.song_id ] ) %]">[% playlist_song.song.name %]</a>
     [% END %]
     </div>
 </div>
-[% END %]
 
 <div id="songs" class="clips">
+    <h1>Songs</h1>
     [% FOREACH song = songs %]
         <a id="[% song.id %]">[% song.name %]</a>
     [% END %]

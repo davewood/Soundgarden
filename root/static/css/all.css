@@ -40,8 +40,9 @@ button, form.button input {
 /* Musicplayer */
 /***************/
 
-#player {
-    margin: auto;
+.clips {
+    float:left;
+    margin-left: 40px;
     width:400px;
     background-color:#333;
     -moz-border-radius:6px;
@@ -49,7 +50,7 @@ button, form.button input {
     padding:5px;
 }
 
-#player h1 {
+.clips h1 {
     color: #fff;
     text-align: center;
 }
@@ -71,6 +72,6 @@ button, form.button input {
     font-size: 0.8em;
 }
 
-.clips a.playing, .clips a.paused, .clips a:hover {
-    background-color: #389e28;
+a.playing, a.paused, .clips a:hover {
+    background-color: #99f;
 }
