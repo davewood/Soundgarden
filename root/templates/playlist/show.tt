@@ -90,6 +90,6 @@
 <div id="songs" class="clips">
     <h1>Songs</h1>
     [% FOREACH song = songs %]
-        <a id="[% song.id %]">[% song.name %]</a>
+        <a id="[% song.id %]" href="[% c.uri_for(c.controller('Song').action_for('file'), [ song.id ] ) %]">[% song.name %]</a>
     [% END %]
 </div>
