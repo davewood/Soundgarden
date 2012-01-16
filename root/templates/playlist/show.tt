@@ -24,6 +24,7 @@
         }).playlist("div#playlist", { loop: true });
 
         $("div#playlist").sortable({
+            helper: 'clone',
             update: function(event, ui) {
                 $(this).sortable("disable");
                 var id   = ui.item.attr('id');
@@ -55,7 +56,7 @@
 <div id="player">
     <h1>[% playlist.name %]</h1> 
     <div id="player_control"></div> 
-    <div id="playlist">
+    <div id="playlist" class="clips">
     [% FOREACH playlist_song = playlist.playlist_songs %]
         <a id="[% playlist_song.song_id %]" href="[% c.uri_for(c.controller('Song').action_for('file'), [ playlist_song.song_id ] ) %]">[% playlist_song.song.name %]</a>
     [% END %]

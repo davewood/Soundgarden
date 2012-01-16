@@ -58,7 +58,7 @@ button, form.button input {
     height:30px;
 }
 
-#playlist a {
+.clips a {
     color: black;
     display: block;
     padding-left:10px;
@@ -71,6 +71,6 @@ button, form.button input {
     font-size: 0.8em;
 }
 
-#playlist a.playing, #playlist a.paused, #playlist a:hover {
+.clips a.playing, .clips a.paused, .clips a:hover {
     background-color: #389e28;
 }
