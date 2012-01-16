@@ -23,14 +23,23 @@
             } 
         }).playlist("div#playlist", { loop: true });
 
+        $("div#songs").sortable({ connectWith: "div#playlist" });
+        $("div#songs").disableSelection();
+
         $("div#playlist").sortable({
             helper: 'clone',
+            containment: 'parent',
             update: function(event, ui) {
                 $(this).sortable("disable");
                 var id   = ui.item.attr('id');
                 var pos  = ui.item.index() + 1;
-
                 update_playlist_order(id, pos);
+            },
+            receive: function(event, ui) {
+                $(this).sortable("disable");
+                var id   = ui.item.attr('id');
+                var pos  = ui.item.index() + 1;
+                add_song_at_pos(id, pos);
             }
         });
         $("div#playlist").disableSelection();
@@ -39,6 +48,21 @@
             $.ajax({
                 type: 'POST',
                 url: "[% c.uri_for('/playlists/' _ playlist.id _ '/move_song_to_pos/') %]" + id + '/' + pos,
+                async: false,
+                context: $("div#playlist"),
+                error: function(){
+                    $(this).sortable("cancel");
+                },
+                complete: function(){
+                    $(this).sortable("enable");
+                }
+            });
+        }
+
+        function add_song_at_pos(id, pos) {
+            $.ajax({
+                type: 'POST',
+                url: "[% c.uri_for('/playlists/' _ playlist.id _ '/add_song_at_pos/') %]" + id + '/' + pos,
                 async: false,
                 context: $("div#playlist"),
                 error: function(){
@@ -66,6 +90,6 @@
 
 <div id="songs" class="clips">
     [% FOREACH song = songs %]
-        <div id="[% song.id %]">[% song.name %]</div>
+        <a id="[% song.id %]">[% song.name %]</a>
     [% END %]
 </div>
