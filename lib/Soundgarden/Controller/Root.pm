@@ -25,7 +25,7 @@ sub default :Path {
 sub denied :Private {
     my ($self, $c) = @_;
     $c->stash(error_msg => 'access denied');
-    $c->res->status('403');
+    $c->res->status(403);
     $c->detach('/error');
 }
 

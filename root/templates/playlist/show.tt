@@ -22,6 +22,32 @@
                 }
             } 
         }).playlist("div#playlist", { loop: true });
+
+        $("div#playlist").sortable({
+            update: function(event, ui) {
+                $(this).sortable("disable");
+                var id   = ui.item.attr('id');
+                var pos  = ui.item.index() + 1;
+
+                update_playlist_order(id, pos);
+            }
+        });
+        $("div#playlist").disableSelection();
+
+        function update_playlist_order(id, pos) {
+            $.ajax({
+                type: 'POST',
+                url: "[% c.uri_for('/playlists/' _ playlist.id _ '/move_song_to_pos/') %]" + id + '/' + pos,
+                async: false,
+                context: $("div#playlist"),
+                error: function(){
+                    $(this).sortable("cancel");
+                },
+                complete: function(){
+                    $(this).sortable("enable");
+                }
+            });
+        }
     });
 </script>
 
@@ -30,8 +56,8 @@
     <h1>[% playlist.name %]</h1> 
     <div id="player_control"></div> 
     <div id="playlist">
-    [% FOREACH song = playlist.songs %]
-        <a href="[% c.uri_for(c.controller('Song').action_for('file'), [ song.id ] ) %]">[% song.name %]</a>
+    [% FOREACH playlist_song = playlist.playlist_songs %]
+        <a id="[% playlist_song.song_id %]" href="[% c.uri_for(c.controller('Song').action_for('file'), [ playlist_song.song_id ] ) %]">[% playlist_song.song.name %]</a>
     [% END %]
     </div>
 </div>

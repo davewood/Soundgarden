@@ -10,6 +10,7 @@
         <!-- JQUERY -->
         <!-- flowplayer playlist does not work with jquery version 1.7.1 or 1.6.4 -->
         <script type="text/javascript" src="/static/js/jquery/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="/static/js/jquery/jquery-ui-1.8.17.custom.min.js"></script>
 
         <!-- FLOWPLAYER -->
         <script type="text/javascript" src="/static/js/flowplayer/flowplayer-3.2.6.min.js"></script>
