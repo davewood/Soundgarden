@@ -30,6 +30,7 @@
         $("#playlist").sortable({
             helper: 'clone',
             axis: 'y',
+            delay: 200,
             update: function(event, ui) {
                 $(ui.sender).sortable("disable");
                 id   = ui.item.attr('id');
@@ -75,7 +76,14 @@
             });
         }
 
-        $('#playlist a span').click(function(){
+        $('#playlist').delegate('a', 'mouseenter', function(){
+            $(this).children('span').show();
+        });
+        $('#playlist').delegate('a', 'mouseleave', function(){
+            $(this).children('span').hide();
+        });
+
+        $('#playlist a span').delegate('', 'click', function(){
             var id = $(this).parent().attr('id');
             var song = $(this).parent();
             remove_song(id, song);
@@ -114,6 +122,7 @@
                             + 'href="/songs/' + value.id + '/file"'
                             + '>'
                             + value.name
+                            + '<span>x</span>'
                             + '</a>';
                         $(song).appendTo(songlist);
                     });
@@ -135,7 +144,7 @@
     <div id="player_control"></div> 
     <div id="playlist" class="items">
     [% FOREACH playlist_song = playlist.playlist_songs %]
-        <a id="[% playlist_song.song_id %]" href="[% c.uri_for(c.controller('Song').action_for('file'), [ playlist_song.song_id ] ) %]">[% playlist_song.song.name %]<span style="float:right;margin-right:5px;">x</span></a>
+        <a id="[% playlist_song.song_id %]" href="[% c.uri_for(c.controller('Song').action_for('file'), [ playlist_song.song_id ] ) %]">[% playlist_song.song.name %]<span>x</span></a>
     [% END %]
     </div>
 </div>

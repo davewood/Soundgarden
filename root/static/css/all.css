@@ -4,11 +4,7 @@
 
 #bd {
     min-height: 600px;
-    background-color: #69c;
-}
-
-#hd, #ft {
-    background-color: #f6f;
+    margin-top: 15px;
 }
 
 #nav {
@@ -48,6 +44,11 @@ button, form.button input {
     min-height: 20px;
 }
 
+#playlist a span, #songlist a span {
+    display: none;
+    float:right;
+}
+
 #playlists {
     width: 250px;
 }
@@ -63,7 +64,7 @@ button, form.button input {
 }
 
 .container h1 {
-    color: #fff;
+    color: #ddd;
     text-align: center;
 }
 
@@ -76,18 +77,18 @@ button, form.button input {
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     height: 20px;
-    background-color: #52e93a;
+    background-color: #666;
     text-decoration: none;
     font-size: 0.8em;
 }
 
 a.active, a.playing, a.paused, .items a:hover {
-    background-color: #99f;
+    background-color: #66f;
 }
 
 #search {
     width: 290px;
     border:0px solid black;
-    background-color:#ccc;
-    color:#222;
+    background-color:#eee;
+    color:#111;
 }
