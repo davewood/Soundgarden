@@ -2,7 +2,10 @@ package Soundgarden::Controller::Playlist;
 use Moose;
 use namespace::autoclean;
 
-BEGIN { extends 'CatalystX::Resource::Controller::Resource' }
+BEGIN { 
+    extends 'CatalystX::Resource::Controller::Resource';
+    with 'CatalystX::Resource::TraitFor::Controller::Resource::Show';
+}
 
 sub move_song_to_pos : Method('POST') Chained('base_with_id') PathPart('move_song_to_pos') Args(2) {
     my ( $self, $c, $song_id, $pos ) = @_;
@@ -70,17 +73,13 @@ sub remove_song : Method('POST') Chained('base_with_id') PathPart('remove_song')
     $c->res->status(200);
 }
 
-sub auto : Private {
+after "show" => sub {
     my ( $self, $c ) = @_;
-
-    if ($c->action->name eq 'show') {
-        # do not display navigation menu
-        $c->stash(
-            no_nav => 1,
-        );
-    }
-
-    1;
-}
+    $c->log->debug("foo");
+    $c->stash(
+        no_nav => 1,
+        playlists => [ $c->stash->{playlists_rs}->all ],
+    );
+};
 
 1;

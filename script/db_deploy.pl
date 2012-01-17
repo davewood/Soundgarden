@@ -24,6 +24,7 @@ if ($ui eq 'Y') {
 
     my @rolenames = qw/
         can_list_playlists
+        can_show_playlists
         can_create_playlists
         can_edit_playlists
         can_delete_playlists

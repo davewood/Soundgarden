@@ -123,18 +123,25 @@
     });
 </script>
 
-<div id="player" class="clips">
+<div id="playlists" class="container items">
+    <h1>Playlists</h1> 
+    [% FOREACH p = playlists %]
+        <a href="[% c.uri_for(c.controller('Playlist').action_for('show'), [ p.id ] ) %]"[% IF p.id == playlist.id %] class="active"[% END %]>[% p.name %]</a>
+    [% END %]
+</div>
+
+<div id="player" class="container">
     <h1>[% playlist.name %]</h1> 
     <div id="player_control"></div> 
-    <div id="playlist">
+    <div id="playlist" class="items">
     [% FOREACH playlist_song = playlist.playlist_songs %]
         <a id="[% playlist_song.song_id %]" href="[% c.uri_for(c.controller('Song').action_for('file'), [ playlist_song.song_id ] ) %]">[% playlist_song.song.name %]<span style="float:right;margin-right:5px;">x</span></a>
     [% END %]
     </div>
 </div>
 
-<div id="songs" class="clips">
+<div id="songs" class="container">
     <h1>Search</h1>
     <input id="search" autocomplete="off" />
-    <div id="songlist"></div>
+    <div id="songlist" class="items"></div>
 </div>

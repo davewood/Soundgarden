@@ -171,7 +171,13 @@ __PACKAGE__->config(
         resource_key           => 'playlist',
         form_class             => 'Soundgarden::Form::Playlist',
         model                  => 'DB::Playlist',
-        redirect_mode          => 'list',
+        redirect_mode          => 'show',
+
+        # remove Show trait here and include it manually
+        # in Soundgarden::Controller::Playlist because else
+        # method modifier "after => 'show'" does not work
+        traits                 => [qw/ -Show /],
+
         actions                => {
             base => {
                 Does     => 'NeedsLogin',
@@ -179,7 +185,7 @@ __PACKAGE__->config(
             },
             show => {
                 Does         => 'ACL',
-                RequiresRole => 'can_list_playlists',
+                RequiresRole => 'can_show_playlists',
                 ACLDetachTo  => '/denied',
             },
             list => {
