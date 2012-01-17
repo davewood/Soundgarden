@@ -74,6 +74,24 @@
                 }
             });
         }
+
+        $('#playlist a span').click(function(){
+            var id = $(this).parent().attr('id');
+            var song = $(this).parent();
+            remove_song(id, song);
+            return false;
+        });
+        function remove_song(id, song) {
+            $.ajax({
+                type: 'POST',
+                url: "[% c.uri_for('/playlists/' _ playlist.id _ '/remove_song/') %]" + id + '/',
+                async: false,
+                context: song,
+                success: function(){
+                    $(this).remove();
+                },
+            });
+        }
     });
 </script>
 
@@ -82,7 +100,7 @@
     <div id="player_control"></div> 
     <div id="playlist">
     [% FOREACH playlist_song = playlist.playlist_songs %]
-        <a id="[% playlist_song.song_id %]" href="[% c.uri_for(c.controller('Song').action_for('file'), [ playlist_song.song_id ] ) %]">[% playlist_song.song.name %]</a>
+        <a id="[% playlist_song.song_id %]" href="[% c.uri_for(c.controller('Song').action_for('file'), [ playlist_song.song_id ] ) %]">[% playlist_song.song.name %]<span style="float:right;margin-right:5px;">x</span></a>
     [% END %]
     </div>
 </div>
