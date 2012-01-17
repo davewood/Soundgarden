@@ -23,8 +23,8 @@
             } 
         }).playlist("#playlist", { loop: true });
 
-        $("#songs").sortable({ connectWith: "#playlist" });
-        $("#songs").disableSelection();
+        $("#songlist").sortable({ connectWith: "#playlist" });
+        $("#songlist").disableSelection();
 
         var id, pos;
         $("#playlist").sortable({
@@ -92,6 +92,34 @@
                 },
             });
         }
+
+        $("#search").keyup(function(event){
+            event.stopPropagation(); //prevent event being fired twice
+
+            var query = $(this).val();
+            if (query.length >= 3) {
+                search_songs(query);   
+            }
+        });
+        function search_songs(query) {
+            $.ajax({
+                type: 'GET',
+                url: "[% c.uri_for('/songs/search/') %]" + query,
+                success: function(data){
+                    var songlist = $("#songlist");
+                    songlist.children().remove();
+                    $.each(data, function(index, value) {
+                        var song = '<a '
+                            + 'id="' + value.id + '" '
+                            + 'href="/songs/' + value.id + '/file"'
+                            + '>'
+                            + value.name
+                            + '</a>';
+                        $(song).appendTo(songlist);
+                    });
+                },
+            });
+        }
     });
 </script>
 
@@ -106,8 +134,7 @@
 </div>
 
 <div id="songs" class="clips">
-    <h1>Songs</h1>
-    [% FOREACH song = songs %]
-        <a id="[% song.id %]" href="[% c.uri_for(c.controller('Song').action_for('file'), [ song.id ] ) %]">[% song.name %]</a>
-    [% END %]
+    <h1>Search</h1>
+    <input id="search" autocomplete="off" />
+    <div id="songlist"></div>
 </div>

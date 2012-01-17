@@ -77,7 +77,6 @@ sub auto : Private {
         # do not display navigation menu
         $c->stash(
             no_nav => 1,
-            songs => [ $c->model('DB::Song')->all ],
         );
     }
 
