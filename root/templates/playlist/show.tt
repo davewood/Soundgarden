@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(function() {
-        $f("player_control", "/static/js/flowplayer/flowplayer-3.2.7.swf", {
+        var player = $f("player_control", "/static/js/flowplayer/flowplayer-3.2.7.swf", {
             clip: {
                 autoPlay:false,
                 type:"mp3"
@@ -21,7 +21,17 @@
                     tooltips: { volume: false, scrubber: false }
                 }
             } 
-        }).playlist("#playlist", { loop: true });
+        });
+        
+        // if playlist is empty defer playlist initialization
+        // until the first song is added
+        if( $("#playlist a").length > 0 ) {
+            player.playlist("#playlist", { loop: true });
+        } else {
+            $("#playlist").one("sortreceive", function(){
+                player.playlist("#playlist", { loop: true });
+            });
+        }
 
         $("#songlist").sortable({ connectWith: "#playlist" });
         $("#songlist").disableSelection();
@@ -122,7 +132,7 @@
                             + 'href="/songs/' + value.id + '/file"'
                             + '>'
                             + value.name
-                            + '<span>x</span>'
+                            + '<span>&times;</span>'
                             + '</a>';
                         $(song).appendTo(songlist);
                     });
@@ -144,7 +154,7 @@
     <div id="player_control"></div> 
     <div id="playlist" class="items">
     [% FOREACH playlist_song = playlist.playlist_songs %]
-        <a id="[% playlist_song.song_id %]" href="[% c.uri_for(c.controller('Song').action_for('file'), [ playlist_song.song_id ] ) %]">[% playlist_song.song.name %]<span>x</span></a>
+        <a id="[% playlist_song.song_id %]" href="[% c.uri_for(c.controller('Song').action_for('file'), [ playlist_song.song_id ] ) %]">[% playlist_song.song.name %]<span>&times;</span></a>
     [% END %]
     </div>
 </div>

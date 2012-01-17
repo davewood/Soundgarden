@@ -22,21 +22,7 @@
                 <div id="msg">[% msg %]</div>
                 <div id="error_msg">[% error_msg %]</div>
                 <div id="content">
-                    [% IF no_nav %]
-                        [% content %]
-                    [% ELSE %]
-                        <div id="yui-main">
-                            <div class="yui-b">
-                                [% content %]
-                            </div>
-                        </div>
-                        <div id="nav" class="yui-b">
-                            <a href="[% c.uri_for(c.controller('Root').action_for('index')) %]">home</a><br/>
-                            <a href="[% c.uri_for(c.controller('User').action_for('list')) %]">users</a><br/>
-                            <a href="[% c.uri_for(c.controller('Playlist').action_for('list')) %]">playlists</a><br/>
-                            <a href="[% c.uri_for(c.controller('Song').action_for('list')) %]">songs</a><br/>
-                        </div>
-                    [% END %]
+                    [% content %]
                 </div>
             </div>
         </div>

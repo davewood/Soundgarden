@@ -75,9 +75,7 @@ sub remove_song : Method('POST') Chained('base_with_id') PathPart('remove_song')
 
 after "show" => sub {
     my ( $self, $c ) = @_;
-    $c->log->debug("foo");
     $c->stash(
-        no_nav => 1,
         playlists => [ $c->stash->{playlists_rs}->all ],
     );
 };
