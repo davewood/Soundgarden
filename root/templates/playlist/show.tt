@@ -111,6 +111,9 @@
             });
         }
 
+        $("#searchall").click(function(){
+            search_songs('');   
+        });
         $("#search").keyup(function(event){
             event.stopPropagation(); //prevent event being fired twice
 
@@ -162,5 +165,6 @@
 <div id="songs" class="container">
     <h1>Search</h1>
     <input id="search" autocomplete="off" />
+    <div id="searchall">all</div>
     <div id="songlist" class="items"></div>
 </div>

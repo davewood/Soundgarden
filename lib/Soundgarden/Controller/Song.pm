@@ -22,10 +22,11 @@ sub file : Chained('base_with_id') PathPart('file') Args(0) {
     $self->sendfile($c, $file, $content_type);
 }
 
-sub search : Method('GET') Chained('base') PathPart('search') Args(1) {
+sub search : Method('GET') Chained('base') PathPart('search') Args {
     my ( $self, $c, $query ) = @_;
 
-    my $song_rs = $c->stash->{songs_rs}->search({ name => { -like => "%$query%" } });
+    my $search_params = defined $query ? { name => { -like => "%$query%" } } : {};
+    my $song_rs = $c->stash->{songs_rs}->search($search_params);
     my @result;
     while ( my $song = $song_rs->next) {
         push @result, { id => $song->id, name => $song->name };
