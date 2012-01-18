@@ -1,5 +1,0 @@
-[% FOREACH song = songs %]
-    [% song.name %]
-    <a href="[% c.uri_for(c.controller('Song').action_for('edit'), [ song.id ]) %]"><button>edit</button></a>
-    <form class="button" method="post" action="[% c.uri_for(c.controller('Song').action_for('delete'), [ song.id ]) %]"><input type="submit" value="delete" onclick="return confirm('Confirm deletion')" /></form><br/>
-[% END %]

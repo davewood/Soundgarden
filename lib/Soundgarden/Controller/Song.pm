@@ -5,6 +5,8 @@ use JSON qw/to_json/;
 
 BEGIN {
     extends 'CatalystX::Resource::Controller::Resource';
+    with 'CatalystX::Resource::TraitFor::Controller::Resource::Form';
+    with 'CatalystX::Resource::TraitFor::Controller::Resource::Edit';
     with 'Catalyst::TraitFor::Controller::Sendfile';
 }
 
@@ -36,5 +38,19 @@ sub search : Method('GET') Chained('base') PathPart('search') Args {
     $c->res->content_type('application/json');
     $c->res->status(200);
 }
+
+after 'edit' => sub {
+    my ($self, $c) = @_;
+    $c->session( redirect_after_edit => $c->req->referer )
+        if $c->req->method eq 'GET';
+};
+
+override '_redirect' => sub {
+    my ($self, $c) = @_;
+    if (exists $c->session->{redirect_after_edit}) {
+        $c->res->redirect($c->session->{redirect_after_edit});
+        delete $c->session->{redirect_after_edit};
+    }
+};
 
 1;

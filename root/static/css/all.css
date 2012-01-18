@@ -40,9 +40,10 @@ button, form.button input {
     min-height: 20px;
 }
 
-#playlist a span, #songlist a span {
+#playlists a span, #playlist a span, #songlist a span {
     display: none;
     float:right;
+    margin-left:5px;
 }
 
 #playlists {

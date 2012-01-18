@@ -23,17 +23,6 @@ if ($ui eq 'Y') {
     my $user = $schema->resultset('User')->create({ name => "admin", password => "foo" });
 
     my @rolenames = qw/
-        can_list_playlists
-        can_show_playlists
-        can_create_playlists
-        can_edit_playlists
-        can_delete_playlists
-
-        can_list_songs
-        can_create_songs
-        can_edit_songs
-        can_delete_songs
-
         can_list_users
         can_create_users
         can_edit_users

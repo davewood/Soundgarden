@@ -1,5 +1,0 @@
-[% FOREACH playlist = playlists %]
-    [% playlist.name %]
-    <a href="[% c.uri_for(c.controller('Playlist').action_for('edit'), [ playlist.id ]) %]"><button>edit</button></a>
-    <form class="button" method="post" action="[% c.uri_for(c.controller('Playlist').action_for('delete'), [ playlist.id ]) %]"><input type="submit" value="delete" onclick="return confirm('Confirm deletion')" /></form><br/>
-[% END %]

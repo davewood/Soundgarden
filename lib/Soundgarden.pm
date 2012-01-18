@@ -135,33 +135,16 @@ __PACKAGE__->config(
         form_class             => 'Soundgarden::Form::Song',
         model                  => 'DB::Song',
         redirect_mode          => 'list',
-        traits                 => [qw/ -Show MergeUploadParams /],
+
+        # the Edit and Form trait are manually included in Controller:Song
+        traits                 => [qw/ -Edit -Form -Show -List MergeUploadParams /],
+
         activate_fields_create => [qw/ file /],
         activate_fields_edit   => [qw/ edit_with_file /],
         actions                => {
             base => {
                 Does     => 'NeedsLogin',
                 PathPart => 'songs',
-            },
-            list => {
-                Does         => 'ACL',
-                RequiresRole => 'can_list_songs',
-                ACLDetachTo  => '/denied',
-            },
-            create => {
-                Does         => 'ACL',
-                RequiresRole => 'can_create_songs',
-                ACLDetachTo  => '/denied',
-            },
-            edit => {
-                Does         => 'ACL',
-                RequiresRole => 'can_edit_songs',
-                ACLDetachTo  => '/denied',
-            },
-            delete => {
-                Does         => 'ACL',
-                RequiresRole => 'can_delete_songs',
-                ACLDetachTo  => '/denied',
             },
         },
     },
@@ -176,37 +159,12 @@ __PACKAGE__->config(
         # remove Show trait here and include it manually
         # in Soundgarden::Controller::Playlist because else
         # method modifier "after => 'show'" does not work
-        traits                 => [qw/ -Show /],
+        traits                 => [qw/ -Show  -List /],
 
         actions                => {
             base => {
                 Does     => 'NeedsLogin',
                 PathPart => 'playlists',
-            },
-            show => {
-                Does         => 'ACL',
-                RequiresRole => 'can_show_playlists',
-                ACLDetachTo  => '/denied',
-            },
-            list => {
-                Does         => 'ACL',
-                RequiresRole => 'can_list_playlists',
-                ACLDetachTo  => '/denied',
-            },
-            create => {
-                Does         => 'ACL',
-                RequiresRole => 'can_create_playlists',
-                ACLDetachTo  => '/denied',
-            },
-            edit => {
-                Does         => 'ACL',
-                RequiresRole => 'can_edit_playlists',
-                ACLDetachTo  => '/denied',
-            },
-            delete => {
-                Does         => 'ACL',
-                RequiresRole => 'can_delete_playlists',
-                ACLDetachTo  => '/denied',
             },
         },
     },
