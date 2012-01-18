@@ -73,6 +73,22 @@ sub remove_song : Method('POST') Chained('base_with_id') PathPart('remove_song')
     $c->res->status(200);
 }
 
+sub delete : Method('POST') Chained('base_with_id') PathPart('delete') Args(0) {
+    my ( $self, $c ) = @_;
+
+    my $playlist = $c->stash->{playlist};
+
+    if (!$playlist) {
+        $c->res->body('Playlist does not exist.');
+        $c->res->status(404);
+        $c->detach;
+    }
+
+    $c->res->body($playlist->name . " deleted.");
+    $playlist->delete;
+    $c->res->status(200);
+}
+
 after "show" => sub {
     my ( $self, $c ) = @_;
     $c->stash(

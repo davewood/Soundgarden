@@ -137,7 +137,7 @@ __PACKAGE__->config(
         redirect_mode          => 'list',
 
         # the Create,Edit and Form trait are manually included in Controller:Song
-        traits                 => [qw/ -Create -Edit -Form -Show -List MergeUploadParams /],
+        traits                 => [qw/ -Create -Edit -Form -Delete -Show -List MergeUploadParams /],
 
         activate_fields_create => [qw/ file /],
         activate_fields_edit   => [qw/ edit_with_file /],
@@ -159,7 +159,7 @@ __PACKAGE__->config(
         # remove Show trait here and include it manually
         # in Soundgarden::Controller::Playlist because else
         # method modifier "after => 'show'" does not work
-        traits                 => [qw/ -Show  -List /],
+        traits                 => [qw/ -Show -List -Delete /],
 
         actions                => {
             base => {

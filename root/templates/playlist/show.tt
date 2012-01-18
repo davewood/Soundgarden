@@ -36,15 +36,14 @@
         $("#songlist").sortable({ connectWith: "#playlist" });
         $("#songlist").disableSelection();
 
-        var id, pos;
         $("#playlist").sortable({
             helper: 'clone',
             axis: 'y',
             delay: 200,
             update: function(event, ui) {
                 $(ui.sender).sortable("disable");
-                id   = ui.item.attr('id');
-                pos  = ui.item.index() + 1;
+                var id  = ui.item.attr('id');
+                var pos = ui.item.index() + 1;
                 if (ui.sender) {
                     // new song has been added
                     add_song_at_pos(id, pos, ui.sender);
@@ -102,8 +101,8 @@
         });
         // remove song from playlist button
         $('#playlist a span.delete').delegate('', 'click', function(){
-            var id = $(this).parent().attr('id');
             var song = $(this).parent();
+            var id = song.attr('id');
             remove_song(id, song);
             return false;
         });
@@ -115,18 +114,32 @@
                 context: song,
                 success: function(){
                     $(this).remove();
-                },
+                }
             });
         }
 
-        // delete song button
-        $('#songlist a span.delete').delegate('', 'click', function(){
-            var id = $(this).parent().attr('id');
-            var song = $(this).parent();
-            //delete_song(id, song);
-            alert("delete song");
+        $('#songlist a').delegate('', 'click', function(){
             return false;
         });
+        // delete song button
+        $('#songlist a span.delete').delegate('', 'click', function(){
+            var song = $(this).parent();
+            var id = song.attr('id');
+            delete_song(id, song);
+            return false;
+        });
+        function delete_song(id, song) {
+            $.ajax({
+                type: 'POST',
+                url: '/songs/' + id + '/delete',
+                async: false,
+                context: song,
+                success: function(){
+                    $(this).remove();
+                    $('#playlist a[id="' + id + '"]').remove();
+                }
+            });
+        }
 
         // list of playlists edit button
         $('#playlists a span.edit').delegate('', 'click', function(){
@@ -137,12 +150,24 @@
 
         // list of playlists delete button
         $('#playlists a span.delete').delegate('', 'click', function(){
-            var id = $(this).parent().attr('id');
-            alert("delete playlist");
-            //remove_playlist(id, playlist);
+            var playlist = $(this).parent();
+            var id = playlist.attr('id');
+            delete_playlist(id, playlist);
             return false;
         });
+        function delete_playlist(id, playlist) {
+            $.ajax({
+                type: 'POST',
+                url: '/playlists/' + id + '/delete',
+                async: false,
+                context: playlist,
+                success: function(){
+                    $(this).remove();
+                }
+            });
+        }
 
+        $("#searchall").disableSelection();
         $("#searchall").click(function(){
             search_songs('');   
         });
@@ -172,17 +197,17 @@
                             + '</a>';
                         $(song).appendTo(songlist);
                     });
-                },
+                }
             });
         }
     });
 </script>
 
-<a href="[% c.uri_for(c.controller('Playlist').action_for('create')) %]">new playlist</a>
 <a href="[% c.uri_for(c.controller('Song').action_for('create')) %]">new song</a>
+<a href="[% c.uri_for(c.controller('Playlist').action_for('create')) %]">create new playlist</a>
 
 <div id="playlists" class="container items">
-    <h1>Playlists</h1> 
+    <h1>Playlists</h1>
     [% FOREACH p = playlists %]
         <a id="[% p.id %]" href="[% c.uri_for(c.controller('Playlist').action_for('show'), [ p.id ] ) %]"[% IF p.id == playlist.id %] class="active"[% END %]>[% p.name %]<span class="delete">&times;</span><span class="edit">edit</span></a>
     [% END %]

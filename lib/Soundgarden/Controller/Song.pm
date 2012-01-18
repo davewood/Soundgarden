@@ -40,6 +40,22 @@ sub search : Method('GET') Chained('base') PathPart('search') Args {
     $c->res->status(200);
 }
 
+sub delete : Method('POST') Chained('base_with_id') PathPart('delete') Args(0) {
+    my ( $self, $c ) = @_;
+
+    my $song = $c->stash->{song};
+
+    if (!$song) {
+        $c->res->body('Playlist does not exist.');
+        $c->res->status(404);
+        $c->detach;
+    }
+
+    $c->res->body($song->name . " deleted.");
+    $song->delete;
+    $c->res->status(200);
+}
+
 after qw/ edit create / => sub {
     my ($self, $c) = @_;
     $c->session( redirect_location => $c->req->referer )

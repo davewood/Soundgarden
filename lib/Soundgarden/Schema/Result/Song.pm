@@ -34,4 +34,10 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key ('id');
 
+__PACKAGE__->has_many(
+    'song_playlists',
+    'Soundgarden::Schema::Result::PlaylistSong',
+    'song_id',
+);
+
 1;
