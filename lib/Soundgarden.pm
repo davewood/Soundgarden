@@ -136,8 +136,8 @@ __PACKAGE__->config(
         model                  => 'DB::Song',
         redirect_mode          => 'list',
 
-        # the Edit and Form trait are manually included in Controller:Song
-        traits                 => [qw/ -Edit -Form -Show -List MergeUploadParams /],
+        # the Create,Edit and Form trait are manually included in Controller:Song
+        traits                 => [qw/ -Create -Edit -Form -Show -List MergeUploadParams /],
 
         activate_fields_create => [qw/ file /],
         activate_fields_edit   => [qw/ edit_with_file /],

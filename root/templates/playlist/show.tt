@@ -178,6 +178,9 @@
     });
 </script>
 
+<a href="[% c.uri_for(c.controller('Playlist').action_for('create')) %]">new playlist</a>
+<a href="[% c.uri_for(c.controller('Song').action_for('create')) %]">new song</a>
+
 <div id="playlists" class="container items">
     <h1>Playlists</h1> 
     [% FOREACH p = playlists %]

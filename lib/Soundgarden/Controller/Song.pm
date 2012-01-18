@@ -7,6 +7,7 @@ BEGIN {
     extends 'CatalystX::Resource::Controller::Resource';
     with 'CatalystX::Resource::TraitFor::Controller::Resource::Form';
     with 'CatalystX::Resource::TraitFor::Controller::Resource::Edit';
+    with 'CatalystX::Resource::TraitFor::Controller::Resource::Create';
     with 'Catalyst::TraitFor::Controller::Sendfile';
 }
 
@@ -39,17 +40,17 @@ sub search : Method('GET') Chained('base') PathPart('search') Args {
     $c->res->status(200);
 }
 
-after 'edit' => sub {
+after qw/ edit create / => sub {
     my ($self, $c) = @_;
-    $c->session( redirect_after_edit => $c->req->referer )
-        if $c->req->method eq 'GET';
+    $c->session( redirect_location => $c->req->referer )
+        if ($c->req->method eq 'GET' and defined $c->req->referer);
 };
 
 override '_redirect' => sub {
     my ($self, $c) = @_;
-    if (exists $c->session->{redirect_after_edit}) {
-        $c->res->redirect($c->session->{redirect_after_edit});
-        delete $c->session->{redirect_after_edit};
+    if (exists $c->session->{redirect_location}) {
+        $c->res->redirect($c->session->{redirect_location});
+        delete $c->session->{redirect_redirect_location};
     }
 };
 
