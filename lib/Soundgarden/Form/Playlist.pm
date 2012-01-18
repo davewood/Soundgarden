@@ -9,6 +9,7 @@ has_field 'name' => (
     type => 'Text',
     required => 1,
     size => 10,
+    unique => 1,
 );
 
 has_field 'submit' => ( type => 'Submit', value => 'Submit' );

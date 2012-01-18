@@ -8,6 +8,7 @@ has '+item_class' => ( default => 'User' );
 has_field 'name' => (
     type => 'Text',
     required => 1,
+    unique => 1,
     size => 10,
 );
 
