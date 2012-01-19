@@ -70,7 +70,7 @@ input[type=text], input[type=password] {
     width: 350px;
 }
 
-.container h1 {
+.container_fix h1 {
     color: #ddd;
     text-align: center;
 }
