@@ -1,4 +1,4 @@
-<form id="login_form" method="post" >
+<form id="login_form" method="post" class="container">
     <table>
         <tr>
             <td><label class="label" for="username">Username: </label></td>

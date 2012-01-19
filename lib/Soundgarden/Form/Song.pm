@@ -5,6 +5,7 @@ with 'HTML::FormHandler::Render::Table';
 use List::MoreUtils qw/ any /;
 
 has '+item_class' => ( default => 'Song' );
+has '+css_class' => ( default => 'container' );
 has '+enctype' => ( default => 'multipart/form-data');
 
 has 'upload_fields' => (
