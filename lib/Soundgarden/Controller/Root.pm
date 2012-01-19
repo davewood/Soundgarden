@@ -12,8 +12,13 @@ __PACKAGE__->config(namespace => '');
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-    # do not display navigation menu
-    $c->stash(no_nav => 1);
+    my $playlist = $c->model('DB::Playlist')->first();
+    if ($playlist) {
+        $c->res->redirect($c->uri_for($c->controller('Playlist')->action_for('show'), [$playlist->id]));
+    }
+    else {
+        $c->res->redirect($c->uri_for($c->controller('Playlist')->action_for('create')));
+    }
 }
 
 sub default :Path {
@@ -24,7 +29,7 @@ sub default :Path {
 
 sub denied :Private {
     my ($self, $c) = @_;
-    $c->stash(error_msg => 'access denied');
+    $c->stash(error_msg => 'Access denied');
     $c->res->status(403);
     $c->detach('/error');
 }
