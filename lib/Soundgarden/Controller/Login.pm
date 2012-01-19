@@ -6,7 +6,7 @@ BEGIN { extends 'CatalystX::SimpleLogin::Controller::Login'; }
 
 after 'login' => sub {
     my ($self, $c) = @_;
-    if ($c->user_exists && $self->login_form->field('submit_edit')->input eq 'Login & Edit') {
+    if ($c->user_exists && defined $self->login_form->field('submit_edit')->input) {
         $c->session(edit => 1);
     }
     else {
