@@ -64,14 +64,27 @@ __PACKAGE__->config(
         },
     },
     'Controller::Login' => {
-        traits => [qw/ -RenderAsTTTemplate /],
-        render_login_form_stash_key =>
-            'form',    #replace default 'render_login_form'
         login_form_args => {
             field_list => [
                 '+remember' => { inactive => 1, required => 0 },
                 '+username' => { size     => 10 },
                 '+password' => { size     => 10 },
+
+                # hide default submit button
+                # add submit buttons for play and edit mode
+                '+submit'   => { inactive => 1 },
+                'submit_play' => { 
+                    type        => 'Submit',
+                    value       => 'Login & Play',
+                    css_class => 'button',
+                    tabindex    => 4
+                 },
+                'submit_edit' => {
+                    type        => 'Submit',
+                    value       => 'Login & Edit',
+                    css_class => 'button',
+                    tabindex    => 5
+                },
             ],
             authenticate_username_field_name => 'name',
         },

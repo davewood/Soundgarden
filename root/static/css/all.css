@@ -21,9 +21,16 @@ html {
     display: inline;
 }
 
-button, form.button input {
+button, input[type=submit] {
     border: 1px solid black;
     background-color: #99c;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+input[type=text], input[type=password] {
+    border: 1px solid black;
+    background-color: #bada55;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
 }
