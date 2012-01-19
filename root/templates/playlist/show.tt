@@ -232,6 +232,7 @@
 <div id="songs" class="container items">
     <a href="[% c.uri_for(c.controller('Song').action_for('create')) %]">new song</a>
     <a href="[% c.uri_for(c.controller('Playlist').action_for('create')) %]">new playlist</a>
+    <a href="[% c.uri_for(c.controller('Login').action_for('logout')) %]">logout</a>
     <h1>Search</h1>
     <input id="search" autocomplete="off" />
     <div id="searchall">all</div>
