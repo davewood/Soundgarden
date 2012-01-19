@@ -101,9 +101,11 @@
         });
         // remove song from playlist button
         $('#playlist a span.delete').delegate('', 'click', function(){
-            var song = $(this).parent();
-            var id = song.attr('id');
-            remove_song(id, song);
+            if(confirm("Remove song from playlist?")) {
+                var song = $(this).parent();
+                var id = song.attr('id');
+                remove_song(id, song);
+            }
             return false;
         });
         function remove_song(id, song) {
@@ -123,9 +125,11 @@
         });
         // delete song button
         $('#songlist a span.delete').delegate('', 'click', function(){
-            var song = $(this).parent();
-            var id = song.attr('id');
-            delete_song(id, song);
+            if(confirm("Delete song from Server and all playlists?")) {
+                var song = $(this).parent();
+                var id = song.attr('id');
+                delete_song(id, song);
+            }
             return false;
         });
         function delete_song(id, song) {
@@ -150,9 +154,11 @@
 
         // list of playlists delete button
         $('#playlists a span.delete').delegate('', 'click', function(){
-            var playlist = $(this).parent();
-            var id = playlist.attr('id');
-            delete_playlist(id, playlist);
+            if(confirm("Delete playlist?")) {
+                var playlist = $(this).parent();
+                var id = playlist.attr('id');
+                delete_playlist(id, playlist);
+            }
             return false;
         });
         function delete_playlist(id, playlist) {
