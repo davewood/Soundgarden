@@ -1,0 +1,18 @@
+<form id="login_form" method="post" >
+    <table>
+        <tr>
+            <td><label class="label" for="username">Username: </label></td>
+            <td><input type="text" name="username" id="username" size="10" value="" tabindex="1" /></td>
+        </tr>
+        <tr>
+            <td><label class="label" for="password">Password: </label></td>
+            <td><input type="password" name="password" id="password" size="10" value="" tabindex="2" /></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" name="submit_play" id="submit_play" tabindex="3" value="Login &amp; Play" />
+                <input type="submit" name="submit_edit" id="submit_edit" tabindex="4" value="Login &amp; Edit" />
+            </td>
+        </tr>
+    </table>
+</form>

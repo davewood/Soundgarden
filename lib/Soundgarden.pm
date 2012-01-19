@@ -64,6 +64,7 @@ __PACKAGE__->config(
         },
     },
     'Controller::Login' => {
+        traits => [qw/ -RenderAsTTTemplate /],
         login_form_args => {
             field_list => [
                 '+remember' => { inactive => 1, required => 0 },
@@ -73,18 +74,8 @@ __PACKAGE__->config(
                 # hide default submit button
                 # add submit buttons for play and edit mode
                 '+submit'   => { inactive => 1 },
-                'submit_play' => { 
-                    type        => 'Submit',
-                    value       => 'Login & Play',
-                    css_class => 'button',
-                    tabindex    => 4
-                 },
-                'submit_edit' => {
-                    type        => 'Submit',
-                    value       => 'Login & Edit',
-                    css_class => 'button',
-                    tabindex    => 5
-                },
+                'submit_play' => { type => 'Submit' },
+                'submit_edit' => { type => 'Submit' },
             ],
             authenticate_username_field_name => 'name',
         },

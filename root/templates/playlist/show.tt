@@ -219,7 +219,6 @@
 </div>
 
 <div id="player" class="container">
-    <h1>[% playlist.name %]</h1> 
     <div id="player_control"></div> 
     <div id="playlist" class="items">
     [% FOREACH playlist_song = playlist.playlist_songs %]

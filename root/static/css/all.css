@@ -57,14 +57,17 @@ input[type=text], input[type=password] {
     width: 250px;
 }
 
-.container {
+.container, #content > form {
     float:left;
     margin-left: 10px;
-    width:350px;
     background-color:#333;
     -moz-border-radius:6px;
     -webkit-border-radius:6px;
     padding:5px;
+}
+
+.container {
+    width: 350px;
 }
 
 .container h1 {
