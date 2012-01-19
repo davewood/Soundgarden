@@ -91,7 +91,7 @@ __PACKAGE__->config(
         schema_class => 'Soundgarden::Schema',
         fs_path      => __PACKAGE__->path_to( qw/ root files / ),
         connect_info => {
-            dsn            => 'dbi:SQLite:dbname=soundgarden.db',
+            dsn            => 'dbi:SQLite:dbname=' . __PACKAGE__->path_to( qw/  soundgarden.db / ),
             sqlite_unicode => 1,
         }
     },
