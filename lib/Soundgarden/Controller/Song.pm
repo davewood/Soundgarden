@@ -1,7 +1,7 @@
 package Soundgarden::Controller::Song;
 use Moose;
 use namespace::autoclean;
-use JSON qw/to_json/;
+use JSON qw/encode_json/;
 
 BEGIN {
     extends 'CatalystX::Resource::Controller::Resource';
@@ -35,7 +35,7 @@ sub search : Method('GET') Chained('base') PathPart('search') Args {
         push @result, { id => $song->id, name => $song->name };
     }
 
-    $c->res->body(to_json(\@result));
+    $c->res->body(encode_json(\@result));
     $c->res->content_type('application/json');
     $c->res->status(200);
 }
