@@ -49,7 +49,7 @@ input[type=checkbox] {
 }
 
 #playlist {
-    min-height: 20px;
+    min-height: 100px;
 }
 
 #playlists a span, #playlist a span, #songlist a span {
