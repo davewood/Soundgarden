@@ -20,7 +20,7 @@ sub _build_upload_fields {
 has_field 'name' => (
     type => 'Text',
     required => 1,
-    size => 10,
+    size => 30,
     unique => 1,
 );
 

@@ -9,7 +9,7 @@ has '+css_class' => ( default => 'container' );
 has_field 'name' => (
     type => 'Text',
     required => 1,
-    size => 10,
+    size => 30,
     unique => 1,
 );
 
