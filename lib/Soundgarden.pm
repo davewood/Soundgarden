@@ -4,6 +4,28 @@ use namespace::autoclean;
 
 use Catalyst::Runtime 5.80;
 
+# ABSTRACT: A collaborative music listening service
+
+=head1 DESCRIPTION
+
+Upload songs and create playlists shared with all other users.
+At logintime you can choose between 'play' and 'edit' mode.
+
+Mode 'play' only displays playlists you can listen to.
+
+In 'edit' mode you can create/edit/delete playlists and songs.
+
+=head1 INSTALLATION
+
+creates a default user 'admin' password 'foo'
+    ./script/db_deploy.pl
+
+=head2 X-Sendfile / X-Accel-Redirect
+If you deploy with Apache you'll need the X-Sendfile module.
+Nginx users need to configure X-Accel-Redirect.
+
+=cut
+
 # Set flags and add plugins for the application.
 #
 # Note that ORDERING IS IMPORTANT here as plugins are initialized in order,
