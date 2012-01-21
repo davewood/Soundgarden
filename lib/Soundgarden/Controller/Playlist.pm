@@ -13,7 +13,8 @@ sub move_song_to_pos : Method('POST') Chained('base_with_id') PathPart('move_son
     my $playlist = $c->stash->{playlist};
     my $count = $playlist->playlist_songs->count;
 
-    if ( $pos <= 0 || $pos > $count) {
+    $pos = $count if $pos > $count;
+    if ( $pos <= 0 ) {
         $c->res->body('Invalid position in playlist.');
         $c->res->status(400);
         $c->detach;
