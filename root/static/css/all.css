@@ -5,7 +5,18 @@ html {
 
 #doc {
     font-size: 138.5%;
-    margin-top: 15px;
+}
+
+#hd {
+    background-color: #333;
+    overflow: auto;
+    width: 100%;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+#bd {
+    margin-top: 5px;
 }
 
 #msg {
@@ -64,7 +75,7 @@ input[type=checkbox] {
 
 .container, .container_fix {
     float:left;
-    margin-left: 10px;
+    margin-right: 5px;
     background-color:#333;
     -moz-border-radius:6px;
     -webkit-border-radius:6px;
@@ -94,7 +105,11 @@ input[type=checkbox] {
     font-size: 0.8em;
 }
 
-a.active, a.playing, a.paused, .items a:hover {
+a.playing, a.paused {
+    background-color: #369;
+}
+
+.items a:hover {
     background-color: #66f;
 }
 
@@ -107,4 +122,18 @@ a.active, a.playing, a.paused, .items a:hover {
     border:0px solid black;
     background-color:#eee;
     color:#111;
+}
+
+#hd a {
+    display:inline;
+}
+
+#hd .left a {
+    margin-right: 5px;
+    float:left;
+}
+
+#hd .right a {
+    margin-left: 5px;
+    float:right;
 }

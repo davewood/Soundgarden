@@ -18,6 +18,20 @@
     </head>
     <body>
         <div id="doc" class="yui-t2">
+            <div id="hd" class="items">
+                <span class="left">
+                    <a href="[% c.uri_for(c.controller('Root').action_for('index')) %]">Soundgarden</a>
+                </span>
+                [% IF c.user_exists %]
+                <span class="right">
+                    <a href="[% c.uri_for(c.controller('Login').action_for('logout')) %]">logout</a>
+                    [% IF c.session.edit %]
+                    <a href="[% c.uri_for(c.controller('Song').action_for('create')) %]">new song</a>
+                    <a href="[% c.uri_for(c.controller('Playlist').action_for('create')) %]">new playlist</a>
+                    [% END %]
+                </span>
+                [% END %]
+            </div>
             <div id="bd">
                 <div id="msg">[% msg %]</div>
                 <div id="error_msg">[% error_msg %]</div>

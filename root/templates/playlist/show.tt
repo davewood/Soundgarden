@@ -214,7 +214,7 @@
 <div id="playlists" class="container_fix items">
     <h1>Playlists</h1>
     [% FOREACH p = playlists %]
-        <a id="[% p.id %]" href="[% c.uri_for(c.controller('Playlist').action_for('show'), [ p.id ] ) %]"[% IF p.id == playlist.id %] class="active"[% END %]>[% p.name %]<span class="delete">&times;</span><span class="edit">edit</span></a>
+        <a id="[% p.id %]" href="[% c.uri_for(c.controller('Playlist').action_for('show'), [ p.id ] ) %]"[% IF p.id == playlist.id %] class="playing"[% END %]>[% p.name %]<span class="delete">&times;</span><span class="edit">edit</span></a>
     [% END %]
 </div>
 
@@ -229,9 +229,6 @@
 
 [% IF c.session.edit %]
 <div id="songs" class="container_fix items">
-    <a href="[% c.uri_for(c.controller('Song').action_for('create')) %]">new song</a>
-    <a href="[% c.uri_for(c.controller('Playlist').action_for('create')) %]">new playlist</a>
-    <a href="[% c.uri_for(c.controller('Login').action_for('logout')) %]">logout</a>
     <h1>Search</h1>
     <input id="search" autocomplete="off" />
     <div id="searchall">all</div>
