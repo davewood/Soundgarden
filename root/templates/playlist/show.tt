@@ -210,15 +210,19 @@
 [% END %]
     });
 </script>
+<div class="yui-gb">
 
-<div id="playlists" class="container_fix items">
+<div class="yui-u first">
+    <div id="playlists" class="container items">
     <h1>Playlists</h1>
     [% FOREACH p = playlists %]
         <a id="[% p.id %]" href="[% c.uri_for(c.controller('Playlist').action_for('show'), [ p.id ] ) %]"[% IF p.id == playlist.id %] class="playing"[% END %]>[% p.name %]<span class="delete">&times;</span><span class="edit">edit</span></a>
     [% END %]
 </div>
+</div>
 
-<div id="player" class="container_fix">
+<div class="yui-u">
+<div id="player" class="container">
     <div id="player_control"></div> 
     <div id="playlist" class="items">
     [% FOREACH playlist_song = playlist.playlist_songs %]
@@ -226,12 +230,16 @@
     [% END %]
     </div>
 </div>
+</div>
 
 [% IF c.session.edit %]
-<div id="songs" class="container_fix items">
+<div class="yui-u">
+<div id="songs" class="container items">
     <h1>Search</h1>
     <input id="search" autocomplete="off" />
     <div id="searchall">all</div>
     <div id="songlist"></div>
 </div>
 [% END %]
+
+</div>

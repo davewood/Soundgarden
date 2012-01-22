@@ -69,24 +69,14 @@ input[type=checkbox] {
     margin-left:5px;
 }
 
-#playlists {
-    width: 250px;
-}
-
-.container, .container_fix {
-    float:left;
-    margin-right: 5px;
+.container {
     background-color:#333;
     -moz-border-radius:6px;
     -webkit-border-radius:6px;
     padding:5px;
 }
 
-.container_fix {
-    width: 350px;
-}
-
-.container_fix h1 {
+.container h1 {
     color: #ddd;
     text-align: center;
 }
