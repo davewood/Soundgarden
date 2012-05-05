@@ -177,9 +177,11 @@
         $(".search_button").disableSelection();
         $(".search_button").disableSelection();
         $("#search_all").click(function(){
+            $("#search").val('');
             search_songs('');   
         });
         $("#search_unused").click(function(){
+            $("#search").val('');
             search_songs('', 1);   
         });
         $("#search").keyup(function(event){
