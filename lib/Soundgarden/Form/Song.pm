@@ -27,7 +27,7 @@ has_field 'name' => (
 has_field 'file' => ( 
     type => 'Upload',
     required => 1,
-    max_size => 25000000,
+    max_size => 100_000_000,
     inactive    => 1,
 );
 
