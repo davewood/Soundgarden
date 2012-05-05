@@ -32,6 +32,7 @@ __PACKAGE__->add_columns(
     },
 );
 
+__PACKAGE__->resultset_class('Soundgarden::Schema::ResultSet::Song');
 __PACKAGE__->set_primary_key ('id');
 __PACKAGE__->add_unique_constraint( [ qw/ name / ]  );
 

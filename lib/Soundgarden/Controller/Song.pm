@@ -29,7 +29,12 @@ sub search : Method('GET') Chained('base') PathPart('search') Args {
     my ( $self, $c, $query ) = @_;
 
     my $search_params = defined $query ? { name => { -like => "%$query%" } } : {};
-    my $song_rs = $c->stash->{songs_rs}->search($search_params);
+
+    my $song_rs = 
+        defined $c->req->params->{unused}
+        ? $c->stash->{songs_rs}->filter_unused
+        : $c->stash->{songs_rs}->search($search_params);
+
     my @result;
     while ( my $song = $song_rs->next) {
         push @result, { id => $song->id, name => $song->name };

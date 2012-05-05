@@ -174,9 +174,13 @@
             });
         }
 
-        $("#searchall").disableSelection();
-        $("#searchall").click(function(){
+        $(".search_button").disableSelection();
+        $(".search_button").disableSelection();
+        $("#search_all").click(function(){
             search_songs('');   
+        });
+        $("#search_unused").click(function(){
+            search_songs('', 1);   
         });
         $("#search").keyup(function(event){
             event.stopPropagation(); //prevent event being fired twice
@@ -186,10 +190,12 @@
                 search_songs(query);   
             }
         });
-        function search_songs(query) {
+        function search_songs(query, unused) {
+            unused = unused ? "unused=1" : null
             $.ajax({
                 type: 'GET',
                 url: "[% c.uri_for('/songs/search/') %]" + query,
+                data: unused,
                 success: function(data){
                     var songlist = $("#songlist");
                     songlist.children().remove();
@@ -237,7 +243,8 @@
 <div id="songs" class="container items">
     <h1>Search</h1>
     <input id="search" autocomplete="off" />
-    <div id="searchall">all</div>
+    <div class="search_button" id="search_all">all</div>
+    <div class="search_button" id="search_unused">unused</div>
     <div id="songlist"></div>
 </div>
 [% END %]
