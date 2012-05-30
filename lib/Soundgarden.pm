@@ -172,6 +172,11 @@ __PACKAGE__->config(
                 Does     => 'NeedsLogin',
                 PathPart => 'songs',
             },
+            delete => {
+                Does         => 'ACL',
+                RequiresRole => 'can_delete_songs',
+                ACLDetachTo  => '/denied',
+            },
         },
     },
     'Controller::Playlist' => {

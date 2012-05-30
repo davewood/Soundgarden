@@ -27,6 +27,7 @@ if ($ui eq 'Y') {
         can_create_users
         can_edit_users
         can_delete_users
+        can_delete_songs
     /;
 
     for my $rolename (@rolenames) {

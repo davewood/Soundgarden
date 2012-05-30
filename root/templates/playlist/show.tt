@@ -142,7 +142,10 @@
                 success: function(){
                     $(this).remove();
                     $('#playlist a[id="' + id + '"]').remove();
-                }
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    alert('Error: ' + textStatus);
+                },
             });
         }
 
