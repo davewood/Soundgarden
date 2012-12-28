@@ -1,0 +1,41 @@
+#!/usr/bin/env perl
+use warnings;
+use strict;
+use Daemon::Control;
+
+# 1) create initd file
+# ./soundgarden.starman.initd get_init_file > foo
+#
+# 2) copy to /etc/init.d/cat-soundgarden
+# cp foo /etc/init.d/cat-soundgarden
+#
+# 3) install to runlevels
+# update-rc.d cat-soundgarden defaults
+
+
+my $app_home = '/var/www/Soundgarden';
+my $program  = '/var/www/perl5/perlbrew/perls/perl-5.16.2/bin/starman';
+my $name     = 'Soundgarden';
+my $workers  = 1;
+my $pid_file = $app_home . '/soundgarden.pid';
+my $socket   = $app_home . '/soundgarden.socket';
+
+Daemon::Control->new({
+    name        => $name,
+    lsb_start   => '$nginx',
+    lsb_stop    => '$nginx',
+    lsb_sdesc   => $name,
+    lsb_desc    => $name,
+    path        => $app_home . '/soundgarden.starman.initd',
+
+    user        => 'www-data',
+    group       => 'www-data',
+    directory   => $app_home,
+    program     => "$program -Ilib soundgarden.psgi --workers $workers --listen $socket",
+
+    pid_file    => $pid_file,
+    stderr_file => $app_home . '/soundgarden.out',
+    stdout_file => $app_home . '/soundgarden.out',
+
+    fork        => 2,
+})->run;
