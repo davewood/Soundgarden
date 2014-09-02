@@ -4,7 +4,7 @@ extends 'HTML::FormHandler::Model::DBIC';
 with 'HTML::FormHandler::Render::Table';
 
 has '+item_class' => ( default => 'Playlist' );
-has '+css_class' => ( default => 'container' );
+sub build_form_element_class { ['container' ] }
 
 has_field 'name' => (
     type => 'Text',
