@@ -13,7 +13,7 @@ use Daemon::Control;
 # update-rc.d cat-soundgarden defaults
 
 my $app_home = '/var/www/Soundgarden';
-my $perl     = '/var/www/perl5/perlbrew/bin/current';
+my $perl     = '/var/www/perl5/perlbrew/perls/current/bin/perl';
 my $program  = $app_home . '/script/soundgarden_fastcgi.pl';
 my $name     = 'Soundgarden';
 my $workers  = 1;
